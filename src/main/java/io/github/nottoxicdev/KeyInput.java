@@ -21,31 +21,23 @@ public class KeyInput extends KeyAdapter {
                 tempObject.setX(0);
                 tempObject.setY(0);
             }
+            if (key == KeyEvent.VK_ESCAPE) {
+                System.exit(1);
+            }
 
             if (tempObject.getID() == ID.Player) {
                 // key events for player 1
                 if (key == KeyEvent.VK_W) {
-                    tempObject.setVelY(-3);
+                    tempObject.setVelY(-6);
                 } else if (key == KeyEvent.VK_S) {
-                    tempObject.setVelY(3);
+                    tempObject.setVelY(6);
                 } else if (key == KeyEvent.VK_D) {
-                    tempObject.setVelX(3);
+                    tempObject.setVelX(6);
                 } else if (key == KeyEvent.VK_A) {
-                    tempObject.setVelX(-3);
+                    tempObject.setVelX(-6);
                 }
             }
-            if (tempObject.getID() == ID.Player2) {
-                // key events for player 2
-                if (key == KeyEvent.VK_UP) {
-                    tempObject.setVelY(-3);
-                } else if (key == KeyEvent.VK_DOWN) {
-                    tempObject.setVelY(3);
-                } else if (key == KeyEvent.VK_RIGHT) {
-                    tempObject.setVelX(3);
-                } else if (key == KeyEvent.VK_LEFT) {
-                    tempObject.setVelX(-3);
-                }
-            }
+
         }
 
     }
@@ -68,18 +60,7 @@ public class KeyInput extends KeyAdapter {
                     tempObject.setVelX(0);
                 }
             }
-            if (tempObject.getID() == ID.Player2) {
-                // key events for player 2
-                if (key == KeyEvent.VK_UP) {
-                    tempObject.setVelY(0);
-                } else if (key == KeyEvent.VK_DOWN) {
-                    tempObject.setVelY(0);
-                } else if (key == KeyEvent.VK_RIGHT) {
-                    tempObject.setVelX(0);
-                } else if (key == KeyEvent.VK_LEFT) {
-                    tempObject.setVelX(0);
-                }
-            }
+
         }
     }
 
