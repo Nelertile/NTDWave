@@ -17,15 +17,19 @@ public class KeyInput extends KeyAdapter {
         for (int i = 0; i < handler.object.size(); i++) {
             GameObject tempObject = handler.object.get(i);
 
-            if (key == KeyEvent.VK_SPACE) {
-                tempObject.setX(0);
-                tempObject.setY(0);
-            }
             if (key == KeyEvent.VK_ESCAPE) {
                 System.exit(1);
             }
 
             if (tempObject.getID() == ID.Player) {
+                if (key == KeyEvent.VK_F3) {
+                    if (Game.showCollisionBoxes) {
+                        Game.showCollisionBoxes = false;
+                    } else {
+                        Game.showCollisionBoxes = true;
+
+                    }
+                }
                 // key events for player 1
                 if (key == KeyEvent.VK_W) {
                     tempObject.setVelY(-6);

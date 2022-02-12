@@ -2,5 +2,6 @@ package io.github.nottoxicdev;
 
 public enum ID {
     Player(),
-    BasicEnemy();
+    BasicEnemy(),
+    Trail();
 }

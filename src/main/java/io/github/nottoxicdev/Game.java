@@ -7,7 +7,7 @@ import java.awt.image.BufferStrategy;
 import java.util.Random;
 
 public class Game extends Canvas implements Runnable {
-    public static String v = "v1.0-dev";
+    public static String v = "v1.0-dev.5";
 
     public static final int WIDTH = 1080, HEIGHT = WIDTH / 12 * 9;
 
@@ -18,6 +18,8 @@ public class Game extends Canvas implements Runnable {
     private HUD hud;
     private Random r;
 
+    public static boolean showCollisionBoxes = false;
+
     public Game() {
         handler = new Handler();
         this.addKeyListener(new KeyInput(handler));
@@ -26,9 +28,9 @@ public class Game extends Canvas implements Runnable {
         hud = new HUD();
         r = new Random();
 
-        handler.addObject(new Player(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Player));
-        for (int i = 0; i < 1; i++) {
-            handler.addObject(new BasicEnemy(r.nextInt(WIDTH), r.nextInt(HEIGHT), ID.BasicEnemy));
+        handler.addObject(new Player(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Player, handler));
+        for (int i = 0; i < 10; i++) {
+            handler.addObject(new BasicEnemy(r.nextInt(WIDTH), r.nextInt(HEIGHT), ID.BasicEnemy, handler));
         }
 
     }
@@ -89,7 +91,7 @@ public class Game extends Canvas implements Runnable {
 
         Graphics g = bs.getDrawGraphics();
 
-        g.setColor(Color.gray);
+        g.setColor(Color.darkGray);
         g.fillRect(0, 0, WIDTH, HEIGHT);
 
         handler.render(g);
