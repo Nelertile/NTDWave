@@ -2,21 +2,12 @@ package io.github.nottoxicdev;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.util.Random;
 
 public class Player extends GameObject {
-
-    Random r = new Random();
 
     public Player(int x, int y, ID id) {
         super(x, y, id);
 
-        velX = r.nextInt(50);
-        velY = r.nextInt(50);
-        if (velX < 2 | velY < 2) {
-            velX += 1;
-            velY += velX;
-        }
     }
 
     public void tick() {
@@ -26,7 +17,11 @@ public class Player extends GameObject {
     }
 
     public void render(Graphics g) {
-        g.setColor(Color.green);
+        if (id == ID.Player) {
+            g.setColor(Color.green);
+        } else if (id == ID.Player2) {
+            g.setColor(Color.red);
+        }
         g.fillRect(x, y, 32, 32);
     }
 
