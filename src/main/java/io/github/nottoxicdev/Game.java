@@ -4,17 +4,30 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
-import java.text.CollationElementIterator;
+import java.util.Random;
 
 public class Game extends Canvas implements Runnable {
     public static String v = "v1.0-dev";
 
     public static final int WIDTH = 1080, HEIGHT = WIDTH / 12 * 9;
+
     private Thread thread;
     private boolean running = false;
 
+    private Random r;
+    private Handler handler;
+
     public Game() {
         new Window(WIDTH, HEIGHT, "Test game; " + v, this);
+
+        handler = new Handler();
+        r = new Random();
+
+        for (int i = 0; i < 50; i++) {
+            handler.addObject(new Player(0, 0, ID.Player));
+
+        }
+
     }
 
     public synchronized void start() {
@@ -61,7 +74,6 @@ public class Game extends Canvas implements Runnable {
 
         }
         stop();
-        // --
     }
 
     private void render() {
@@ -76,11 +88,14 @@ public class Game extends Canvas implements Runnable {
         g.setColor(Color.gray);
         g.fillRect(0, 0, WIDTH, HEIGHT);
 
+        handler.render(g);
+
         g.dispose();
         bs.show();
     }
 
     private void tick() {
+        handler.tick();
     }
 
     public static void main(String[] args) {
