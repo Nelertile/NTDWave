@@ -5,15 +5,14 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
-public class BasicEnemy extends GameObject {
+public class VerticalEnemy extends GameObject {
     private Handler handler;
 
-    public BasicEnemy(int x, int y, ID id, GroupID gid, Handler handler) {
+    public VerticalEnemy(int x, int y, ID id, GroupID gid, Handler handler) {
         super(x, y, id, gid);
 
         this.handler = handler;
 
-        velX = 10;
         velY = 10;
     }
 
@@ -28,7 +27,7 @@ public class BasicEnemy extends GameObject {
             velX *= -1;
         }
 
-        handler.addObject(new Trail(x, y, ID.Trail, GroupID.Effect, Color.MAGENTA, 24, 24, 0.1f, handler));
+        handler.addObject(new Trail(x, y, ID.Trail, GroupID.Effect, Color.CYAN, 24, 24, 0.1f, handler));
     }
 
     public void render(Graphics g) {
@@ -37,7 +36,7 @@ public class BasicEnemy extends GameObject {
             g.setColor(Color.RED);
             g2d.draw(getBounds());
         }
-        g.setColor(Color.MAGENTA);
+        g.setColor(Color.CYAN);
         g.fillRect(x, y, 24, 24);
     }
 

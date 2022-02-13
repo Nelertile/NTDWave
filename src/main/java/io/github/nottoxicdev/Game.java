@@ -7,7 +7,10 @@ import java.awt.image.BufferStrategy;
 import java.util.Random;
 
 public class Game extends Canvas implements Runnable {
-    public static String v = "v1.0-dev.5";
+    public static String v = GameMeta.ConstructGameMeta(1, 0, "dev", 6);
+    public static String m = "";
+    // Construct mod
+    // GameMeta.ConstructModMeta("modName", 1, 0, "dev", 1);
 
     public static final int WIDTH = 1080, HEIGHT = WIDTH / 12 * 9;
 
@@ -16,6 +19,7 @@ public class Game extends Canvas implements Runnable {
 
     private Handler handler;
     private HUD hud;
+    private Spawn spawner;
     private Random r;
 
     public static boolean showCollisionBoxes = false;
@@ -23,15 +27,20 @@ public class Game extends Canvas implements Runnable {
     public Game() {
         handler = new Handler();
         this.addKeyListener(new KeyInput(handler));
+        String title = "";
 
-        new Window(WIDTH, HEIGHT, "Test game; " + v, this);
+        if (m == "") {
+            title = "Test game; " + v;
+        } else {
+            title = "Test game; " + v + " | " + m;
+        }
         hud = new HUD();
+        spawner = new Spawn(handler, hud);
         r = new Random();
 
+        new Window(WIDTH, HEIGHT, title, this);
+
         handler.addObject(new Player(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Player, handler));
-        for (int i = 0; i < 10; i++) {
-            handler.addObject(new BasicEnemy(r.nextInt(WIDTH), r.nextInt(HEIGHT), ID.BasicEnemy, handler));
-        }
 
     }
 
@@ -74,7 +83,7 @@ public class Game extends Canvas implements Runnable {
 
             if (System.currentTimeMillis() - timer > 1000) {
                 timer += 1000;
-                System.out.println("FPS: " + frames);
+                // System.out.println(frames);
                 frames = 0;
             }
 
@@ -105,6 +114,7 @@ public class Game extends Canvas implements Runnable {
     private void tick() {
         handler.tick();
         hud.tick();
+        spawner.tick();
     }
 
     public static int clamp(int var, int min, int max) {

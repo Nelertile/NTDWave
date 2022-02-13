@@ -7,12 +7,14 @@ public abstract class GameObject {
 
     protected int x, y;
     protected ID id;
+    protected GroupID gid;
     protected int velX, velY;
 
-    public GameObject(int x, int y, ID id) {
+    public GameObject(int x, int y, ID id, GroupID gid) {
         this.x = x;
         this.y = y;
         this.id = id;
+        this.gid = gid;
     }
 
     public abstract void tick();
@@ -45,6 +47,15 @@ public abstract class GameObject {
 
     public ID getID() {
         return id;
+    }
+
+    // set & get gid
+    public void setGID(GroupID gid) {
+        this.gid = gid;
+    }
+
+    public GroupID getGID() {
+        return gid;
     }
 
     // set & get velocity
