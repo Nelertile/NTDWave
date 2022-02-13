@@ -37,7 +37,7 @@ public class Menu extends MouseAdapter {
             if (mouseOver(mx, my, Game.WIDTH / 2 - 128, 256, 256, 80)) {
                 Desktop d = Desktop.getDesktop();
                 try {
-                    d.browse(new URI("https://github.com/NotToxicDev/java-game/issues"));
+                    d.browse(new URI("https://github.com/NotToxicDev/NTDWave/issues"));
                 } catch (IOException | URISyntaxException e2) {
                     e2.printStackTrace();
                 }

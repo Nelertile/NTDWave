@@ -4,10 +4,11 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.util.Random;
 
 public class Game extends Canvas implements Runnable {
-    // dev v: 9 | beta v: 0
-    public static String v = GameMeta.ConstructGameMeta(1, 0, "dev", 9);
+    // dev v: 10 | beta v: 0
+    public static String v = GameMeta.ConstructGameMeta(1, 0, "dev", 10);
     public static String m = "";
     // Construct mod
     // GameMeta.ConstructModMeta("modName", 1, 0, "dev", 1);
@@ -21,6 +22,7 @@ public class Game extends Canvas implements Runnable {
     private HUD hud;
     private Spawn spawner;
     private Menu menu;
+    private Random r;
 
     public static boolean showCollisionBoxes = false;
 
@@ -40,19 +42,26 @@ public class Game extends Canvas implements Runnable {
         this.addMouseListener(menu);
 
         if (m == "") {
-            title = "Test game; " + v;
+            title = "NTDWave; " + v;
         } else {
-            title = "Test game; " + v + " | " + m;
+            title = "NTDWave; " + v + " | " + m;
         }
         new Window(WIDTH, HEIGHT, title, this);
 
         hud = new HUD();
         spawner = new Spawn(handler, hud);
+        r = new Random();
 
         if (gameState == STATE.Game) {
             handler.addObject(new Player((float) WIDTH / 2 - 32, (float) HEIGHT / 2 - 32, ID.Player, handler));
-        }
+        } else {
+            for (int i = 0; i < 20; i++) {
+                handler.addObject(new MenuParticle(r.nextFloat(Spawn.fixedWidth),
+                        r.nextFloat(Spawn.fixedHeight), ID.MenuParticle, GroupID.Effect,
+                        handler));
+            }
 
+        }
     }
 
     public synchronized void start() {
@@ -133,6 +142,7 @@ public class Game extends Canvas implements Runnable {
             spawner.tick();
         } else if (gameState == STATE.Menu) {
             menu.tick();
+            handler.tick();
 
         }
 

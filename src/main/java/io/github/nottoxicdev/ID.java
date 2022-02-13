@@ -7,5 +7,6 @@ public enum ID {
     SmartEnemy(),
     VerticalEnemy(),
     HorizontalEnemy(),
-    Trail();
+    Trail(),
+    MenuParticle();
 }
