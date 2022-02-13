@@ -7,7 +7,7 @@ import java.awt.image.BufferStrategy;
 
 public class Game extends Canvas implements Runnable {
     // dev v: 7 | beta v: 0
-    public static String v = GameMeta.ConstructGameMeta(1, 0, "dev", 7);
+    public static String v = GameMeta.ConstructGameMeta(1, 0, "dev", 8);
     public static String m = "";
     // Construct mod
     // GameMeta.ConstructModMeta("modName", 1, 0, "dev", 1);

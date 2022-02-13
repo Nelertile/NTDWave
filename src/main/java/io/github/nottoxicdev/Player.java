@@ -29,7 +29,12 @@ public class Player extends GameObject {
         for (int i = 0; i < handler.object.size(); i++) {
             GameObject tempObject = handler.object.get(i);
 
-            if (tempObject.getGID() == GroupID.Enemy) {
+            if (tempObject.getID() == ID.EnemyBoss) {
+                if (getBounds().intersects(tempObject.getBounds())) {
+                    // collision code
+                    HUD.HEALTH -= 8;
+                }
+            } else if (tempObject.getGID() == GroupID.Enemy) {
                 if (getBounds().intersects(tempObject.getBounds())) {
                     // collision code
                     HUD.HEALTH -= 2;
