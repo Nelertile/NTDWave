@@ -8,7 +8,7 @@ import java.awt.Rectangle;
 public class HorizontalEnemy extends GameObject {
     private Handler handler;
 
-    public HorizontalEnemy(int x, int y, ID id, GroupID gid, Handler handler) {
+    public HorizontalEnemy(Float x, Float y, ID id, GroupID gid, Handler handler) {
         super(x, y, id, gid);
 
         this.handler = handler;
@@ -37,11 +37,11 @@ public class HorizontalEnemy extends GameObject {
             g2d.draw(getBounds());
         }
         g.setColor(Color.GREEN);
-        g.fillRect(x, y, 24, 24);
+        g.fillRect((int) x, (int) y, 24, 24);
     }
 
     public Rectangle getBounds() {
-        return new Rectangle(x, y, 24, 24);
+        return new Rectangle((int) x, (int) y, 24, 24);
     }
 
 }

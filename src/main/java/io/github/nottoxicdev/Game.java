@@ -4,10 +4,10 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
-import java.util.Random;
 
 public class Game extends Canvas implements Runnable {
-    public static String v = GameMeta.ConstructGameMeta(1, 0, "dev", 6);
+    // dev v: 7 | beta v: 0
+    public static String v = GameMeta.ConstructGameMeta(1, 0, "dev", 7);
     public static String m = "";
     // Construct mod
     // GameMeta.ConstructModMeta("modName", 1, 0, "dev", 1);
@@ -20,7 +20,6 @@ public class Game extends Canvas implements Runnable {
     private Handler handler;
     private HUD hud;
     private Spawn spawner;
-    private Random r;
 
     public static boolean showCollisionBoxes = false;
 
@@ -36,11 +35,10 @@ public class Game extends Canvas implements Runnable {
         }
         hud = new HUD();
         spawner = new Spawn(handler, hud);
-        r = new Random();
 
         new Window(WIDTH, HEIGHT, title, this);
 
-        handler.addObject(new Player(WIDTH / 2 - 32, HEIGHT / 2 - 32, ID.Player, handler));
+        handler.addObject(new Player((float) WIDTH / 2 - 32, (float) HEIGHT / 2 - 32, ID.Player, handler));
 
     }
 
@@ -117,7 +115,7 @@ public class Game extends Canvas implements Runnable {
         spawner.tick();
     }
 
-    public static int clamp(int var, int min, int max) {
+    public static float clamp(Float var, Float min, Float max) {
         if (var >= max) {
             return var = max;
         } else if (var <= min) {

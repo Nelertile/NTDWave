@@ -8,7 +8,7 @@ import java.awt.Rectangle;
 public class Player extends GameObject {
     Handler handler;
 
-    public Player(int x, int y, ID id, Handler handler) {
+    public Player(Float x, Float y, ID id, Handler handler) {
         super(x, y, id, null);
         this.handler = handler;
 
@@ -18,9 +18,9 @@ public class Player extends GameObject {
         x += velX;
         y += velY;
 
-        x = Game.clamp(x, 0, Game.WIDTH - 48);
-        y = Game.clamp(y, 0, Game.HEIGHT - 70);
-        handler.addObject(new Trail(x, y, ID.Trail, GroupID.Effect, Color.GRAY, 32, 32, 0.3f, handler));
+        x = Game.clamp(x, 0f, (float) Game.WIDTH - 48);
+        y = Game.clamp(y, 0f, (float) Game.HEIGHT - 70);
+        handler.addObject(new Trail(x, y, ID.Trail, GroupID.Effect, Color.GRAY, 32, 32, 0.2f, handler));
 
         collision();
     }
@@ -46,11 +46,11 @@ public class Player extends GameObject {
         }
 
         g.setColor(Color.GRAY);
-        g.fillRect(x, y, 32, 32);
+        g.fillRect((int) x, (int) y, 32, 32);
     }
 
     public Rectangle getBounds() {
-        return new Rectangle(x, y, 32, 32);
+        return new Rectangle((int) x, (int) y, 32, 32);
     }
 
 }

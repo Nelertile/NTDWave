@@ -8,8 +8,8 @@ import java.awt.Rectangle;
 public class VerticalEnemy extends GameObject {
     private Handler handler;
 
-    public VerticalEnemy(int x, int y, ID id, GroupID gid, Handler handler) {
-        super(x, y, id, gid);
+    public VerticalEnemy(float f, float g, ID id, GroupID gid, Handler handler) {
+        super(f, g, id, gid);
 
         this.handler = handler;
 
@@ -37,11 +37,11 @@ public class VerticalEnemy extends GameObject {
             g2d.draw(getBounds());
         }
         g.setColor(Color.CYAN);
-        g.fillRect(x, y, 24, 24);
+        g.fillRect((int) x, (int) y, 24, 24);
     }
 
     public Rectangle getBounds() {
-        return new Rectangle(x, y, 24, 24);
+        return new Rectangle((int) x, (int) y, 24, 24);
     }
 
 }

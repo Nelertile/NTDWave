@@ -5,9 +5,9 @@ import java.awt.Graphics;
 
 public class HUD {
 
-    public static int HEALTH = 100;
+    public static float HEALTH = 100;
 
-    private int greenValue = 255;
+    private float greenValue = 255f;
 
     private int score = 0;
     private int level = 1;
@@ -17,10 +17,10 @@ public class HUD {
     public void tick() {
         // HEALTH--;
 
-        HEALTH = Game.clamp(HEALTH, 0, 100);
-        greenValue = Game.clamp(greenValue, 0, 255);
+        HEALTH = Game.clamp(HEALTH, 0f, 100f);
+        greenValue = (int) Game.clamp((float) greenValue, (float) 0, (float) 255);
 
-        greenValue = HEALTH * 2;
+        greenValue = (int) (HEALTH * 2);
 
         i++;
         if (i > Spawn.scoreSpeed) {
@@ -32,8 +32,8 @@ public class HUD {
     public void render(Graphics g) {
         g.setColor(Color.darkGray);
         g.fillRect(16, 16, 200, 32);
-        g.setColor(new Color(75, greenValue, 0));
-        g.fillRect(16, 16, HEALTH * 2, 32);
+        g.setColor(new Color(75, (int) greenValue, 0));
+        g.fillRect((int) 16, (int) 16, (int) HEALTH * 2, 32);
         g.setColor(Color.lightGray);
         g.drawRect(16, 16, 200, 32);
 

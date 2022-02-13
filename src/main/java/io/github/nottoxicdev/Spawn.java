@@ -11,8 +11,8 @@ public class Spawn {
     int i = 0;
 
     public static int scoreSpeed = 2;
-    public static int fixedWidth = Game.WIDTH - 64;
-    public static int fixedHeight = Game.HEIGHT - 64;
+    public static float fixedWidth = Game.WIDTH - 64;
+    public static float fixedHeight = Game.HEIGHT - 64;
 
     boolean start = true;
 
@@ -30,7 +30,7 @@ public class Spawn {
 
         if (start) {
             handler.addObject(
-                    new BasicEnemy(r.nextInt(fixedWidth), r.nextInt(fixedHeight), ID.BasicEnemy, GroupID.Enemy,
+                    new BasicEnemy(r.nextFloat(fixedWidth), r.nextFloat(fixedHeight), ID.BasicEnemy, GroupID.Enemy,
                             handler));
             start = false;
         }
@@ -40,11 +40,15 @@ public class Spawn {
             hud.setLevel(hud.getLevel() + 1);
             if (hud.getLevel() == 2) {
                 handler.addObject(
-                        new BasicEnemy(r.nextInt(fixedWidth), r.nextInt(fixedHeight), ID.BasicEnemy, GroupID.Enemy,
+                        new BasicEnemy(r.nextFloat(fixedWidth), r.nextFloat(fixedHeight), ID.BasicEnemy, GroupID.Enemy,
                                 handler));
             } else if (hud.getLevel() == 3) {
                 handler.addObject(
-                        new VerticalEnemy(r.nextInt(fixedWidth), 0, ID.VerticalEnemy, GroupID.Enemy,
+                        new VerticalEnemy(r.nextFloat(fixedWidth), 0f, ID.VerticalEnemy, GroupID.Enemy,
+                                handler));
+            } else if (hud.getLevel() == 4) {
+                handler.addObject(
+                        new SmartEnemy(r.nextFloat(fixedWidth), 0f, ID.SmartEnemy, GroupID.Enemy,
                                 handler));
             }
         }
