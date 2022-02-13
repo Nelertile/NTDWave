@@ -2,10 +2,14 @@ package io.github.nottoxicdev;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Font;
 
 public class HUD {
 
     public static float HEALTH = 100;
+
+    public static Font font = new Font("Comfortaa", 1, 50);
+    public static Font sfont = new Font("Comfortaa", 0, 15);
 
     private float greenValue = 255f;
 
@@ -37,7 +41,8 @@ public class HUD {
         g.setColor(Color.lightGray);
         g.drawRect(16, 16, 200, 32);
 
-        g.drawString(Game.v, Game.WIDTH - 80, 16);
+        g.setFont(sfont);
+        g.drawString(Game.v, 0, Game.HEIGHT - 48);
         g.drawString("Score: " + score, 16, 64);
         g.drawString("Level: " + level, 16, 80);
     }

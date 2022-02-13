@@ -13,7 +13,7 @@ public class EnemyBoss_LV10 extends GameObject {
     private int timer = 30;
     private int timer2 = 50;
     private int timer3 = 1000;
-    private int timerDeath = 50;
+    private int timerDeath = 100;
 
     public EnemyBoss_LV10(Float x, Float y, ID id, GroupID gid, Handler handler) {
         super(x, y, id, gid);

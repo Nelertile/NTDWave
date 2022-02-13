@@ -6,8 +6,8 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
 public class Game extends Canvas implements Runnable {
-    // dev v: 7 | beta v: 0
-    public static String v = GameMeta.ConstructGameMeta(1, 0, "dev", 8);
+    // dev v: 9 | beta v: 0
+    public static String v = GameMeta.ConstructGameMeta(1, 0, "dev", 9);
     public static String m = "";
     // Construct mod
     // GameMeta.ConstructModMeta("modName", 1, 0, "dev", 1);
@@ -20,25 +20,38 @@ public class Game extends Canvas implements Runnable {
     private Handler handler;
     private HUD hud;
     private Spawn spawner;
+    private Menu menu;
 
     public static boolean showCollisionBoxes = false;
 
+    public enum STATE {
+        Menu,
+        Game
+    };
+
+    public STATE gameState = STATE.Menu;
+    public static String title = "";
+
     public Game() {
         handler = new Handler();
+        menu = new Menu(this, handler);
+
         this.addKeyListener(new KeyInput(handler));
-        String title = "";
+        this.addMouseListener(menu);
 
         if (m == "") {
             title = "Test game; " + v;
         } else {
             title = "Test game; " + v + " | " + m;
         }
+        new Window(WIDTH, HEIGHT, title, this);
+
         hud = new HUD();
         spawner = new Spawn(handler, hud);
 
-        new Window(WIDTH, HEIGHT, title, this);
-
-        handler.addObject(new Player((float) WIDTH / 2 - 32, (float) HEIGHT / 2 - 32, ID.Player, handler));
+        if (gameState == STATE.Game) {
+            handler.addObject(new Player((float) WIDTH / 2 - 32, (float) HEIGHT / 2 - 32, ID.Player, handler));
+        }
 
     }
 
@@ -102,17 +115,27 @@ public class Game extends Canvas implements Runnable {
         g.fillRect(0, 0, WIDTH, HEIGHT);
 
         handler.render(g);
+        if (gameState == STATE.Game) {
+            hud.render(g);
 
-        hud.render(g);
-
+        } else if (gameState == STATE.Menu) {
+            menu.render(g);
+        }
         g.dispose();
         bs.show();
+
     }
 
     private void tick() {
-        handler.tick();
-        hud.tick();
-        spawner.tick();
+        if (gameState == STATE.Game) {
+            handler.tick();
+            hud.tick();
+            spawner.tick();
+        } else if (gameState == STATE.Menu) {
+            menu.tick();
+
+        }
+
     }
 
     public static float clamp(Float var, Float min, Float max) {

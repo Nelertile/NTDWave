@@ -32,7 +32,7 @@ public class Player extends GameObject {
             if (tempObject.getID() == ID.EnemyBoss) {
                 if (getBounds().intersects(tempObject.getBounds())) {
                     // collision code
-                    HUD.HEALTH -= 8;
+                    HUD.HEALTH -= 1000;
                 }
             } else if (tempObject.getGID() == GroupID.Enemy) {
                 if (getBounds().intersects(tempObject.getBounds())) {
