@@ -2,8 +2,8 @@ package io.github.nottoxicdev;
 
 public class GameMeta {
 
-    public static String ConstructGameMeta(int major, int minor, String tag, int tagversion) {
-        String verString = ("v" + major + "." + minor + "-" + tag + "." + tagversion);
+    public static String ConstructGameMeta(String gameName, int major, int minor, String tag, int tagversion) {
+        String verString = (gameName + "; " + "v" + major + "." + minor + "-" + tag + "." + tagversion);
         return verString;
     }
 

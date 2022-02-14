@@ -7,11 +7,11 @@ import java.awt.image.BufferStrategy;
 import java.util.Random;
 
 public class Game extends Canvas implements Runnable {
-    // dev v: 10 | beta v: 0
-    public static String v = GameMeta.ConstructGameMeta(1, 0, "dev", 10);
+    // dev v: 11 | beta v: 1
+    public static String v = GameMeta.ConstructGameMeta("NTDWave", 1, 0, "beta", 1);
     public static String m = "";
     // Construct mod
-    // GameMeta.ConstructModMeta("modName", 1, 0, "dev", 1);
+    // m = GameMeta.ConstructModMeta("modName", 1, 0, "dev", 1);
 
     public static final int WIDTH = 1080, HEIGHT = WIDTH / 12 * 9;
 
@@ -28,27 +28,28 @@ public class Game extends Canvas implements Runnable {
 
     public enum STATE {
         Menu,
-        Game
+        Game,
+        End
     };
 
-    public STATE gameState = STATE.Menu;
+    public static STATE gameState = STATE.Menu;
     public static String title = "";
 
     public Game() {
         handler = new Handler();
-        menu = new Menu(this, handler);
+        hud = new HUD();
+        menu = new Menu(handler, hud);
 
         this.addKeyListener(new KeyInput(handler));
         this.addMouseListener(menu);
 
         if (m == "") {
-            title = "NTDWave; " + v;
+            title = v;
         } else {
-            title = "NTDWave; " + v + " | " + m;
+            title = v + " | " + m;
         }
         new Window(WIDTH, HEIGHT, title, this);
 
-        hud = new HUD();
         spawner = new Spawn(handler, hud);
         r = new Random();
 
@@ -56,6 +57,7 @@ public class Game extends Canvas implements Runnable {
             handler.addObject(new Player((float) WIDTH / 2 - 32, (float) HEIGHT / 2 - 32, ID.Player, handler));
         } else {
             for (int i = 0; i < 20; i++) {
+
                 handler.addObject(new MenuParticle(r.nextFloat(Spawn.fixedWidth),
                         r.nextFloat(Spawn.fixedHeight), ID.MenuParticle, GroupID.Effect,
                         handler));
@@ -127,7 +129,7 @@ public class Game extends Canvas implements Runnable {
         if (gameState == STATE.Game) {
             hud.render(g);
 
-        } else if (gameState == STATE.Menu) {
+        } else if (gameState == STATE.Menu || gameState == STATE.End) {
             menu.render(g);
         }
         g.dispose();
@@ -140,7 +142,21 @@ public class Game extends Canvas implements Runnable {
             handler.tick();
             hud.tick();
             spawner.tick();
-        } else if (gameState == STATE.Menu) {
+
+            if (HUD.HEALTH <= 0) {
+                HUD.HEALTH = 100;
+                gameState = STATE.End;
+
+                handler.clearEnemies();
+                for (int i = 0; i < 20; i++) {
+
+                    handler.addObject(new MenuParticle(r.nextFloat(Spawn.fixedWidth),
+                            r.nextFloat(Spawn.fixedHeight), ID.MenuParticle, GroupID.Effect,
+                            handler));
+                }
+
+            }
+        } else if (gameState == STATE.Menu || gameState == STATE.End) {
             menu.tick();
             handler.tick();
 

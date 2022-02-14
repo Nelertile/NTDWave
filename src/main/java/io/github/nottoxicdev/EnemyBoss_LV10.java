@@ -42,16 +42,17 @@ public class EnemyBoss_LV10 extends GameObject {
             else if (velX < 0)
                 velX -= 0.01f;
             if (timer3 <= 0) {
-                int spawn = r.nextInt(2);
+                int spawn = r.nextInt(10);
                 if (spawn == 0)
                     handler.addObject(new EnemyBossBullet(x + 32, y + 256, ID.BasicEnemy, GroupID.Enemy, handler));
                 timerDeath--;
                 if (timerDeath <= 0) {
                     // death
+                    Spawn.boss = false;
                     handler.remObject(this);
                 }
             } else {
-                int spawn = r.nextInt(10);
+                int spawn = r.nextInt(15);
                 if (spawn == 0)
                     handler.addObject(new EnemyBossBullet(x + 32, y + 256, ID.BasicEnemy, GroupID.Enemy, handler));
                 timer3--;
@@ -71,12 +72,13 @@ public class EnemyBoss_LV10 extends GameObject {
 
     public void render(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-        if (Game.showCollisionBoxes) {
-            g.setColor(Color.RED);
-            g2d.draw(getBounds());
-        }
+
         g.setColor(Color.MAGENTA);
         g.fillRect((int) x, (int) y, 64, 256);
+        if (Game.showCollisionBoxes) {
+            g.setColor(Color.RED);
+            g2d.fill(getBounds());
+        }
     }
 
     public Rectangle getBounds() {

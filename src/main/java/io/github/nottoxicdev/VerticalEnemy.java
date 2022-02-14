@@ -32,12 +32,13 @@ public class VerticalEnemy extends GameObject {
 
     public void render(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
-        if (Game.showCollisionBoxes) {
-            g.setColor(Color.RED);
-            g2d.draw(getBounds());
-        }
+
         g.setColor(Color.CYAN);
         g.fillRect((int) x, (int) y, 24, 24);
+        if (Game.showCollisionBoxes) {
+            g.setColor(Color.RED);
+            g2d.fill(getBounds());
+        }
     }
 
     public Rectangle getBounds() {

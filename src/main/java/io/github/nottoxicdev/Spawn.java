@@ -14,7 +14,8 @@ public class Spawn {
     public static float fixedWidth = Game.WIDTH - 64;
     public static float fixedHeight = Game.HEIGHT - 64;
 
-    boolean start = true;
+    public static boolean start = true;
+    public static boolean boss = false;
 
     public Spawn(Handler handler, HUD hud) {
         this.handler = handler;
@@ -39,49 +40,54 @@ public class Spawn {
 
         if (scoreKeep >= 100) {
             scoreKeep = 0;
-            hud.setLevel(hud.getLevel() + 1);
-            if (hud.getLevel() == 2) {
-                handler.addObject(
-                        new BasicEnemy(r.nextFloat(fixedWidth), r.nextFloat(fixedHeight),
-                                ID.BasicEnemy, GroupID.Enemy,
-                                handler));
-            } else if (hud.getLevel() == 3) {
-                handler.addObject(
-                        new VerticalEnemy(r.nextFloat(fixedWidth), 0f, ID.VerticalEnemy,
-                                GroupID.Enemy,
-                                handler));
-            } else if (hud.getLevel() == 4) {
-                handler.addObject(
-                        new SmartEnemy(r.nextFloat(fixedWidth), 0f, ID.SmartEnemy, GroupID.Enemy,
-                                handler));
-            } else if (hud.getLevel() == 5) {
-                for (int i = 0; i < 3; i++) {
+            if (!boss) {
+                hud.setLevel(hud.getLevel() + 1);
+                if (hud.getLevel() == 2) {
+                    handler.addObject(
+                            new BasicEnemy(r.nextFloat(fixedWidth), r.nextFloat(fixedHeight),
+                                    ID.BasicEnemy, GroupID.Enemy,
+                                    handler));
+                } else if (hud.getLevel() == 3) {
                     handler.addObject(
                             new VerticalEnemy(r.nextFloat(fixedWidth), 0f, ID.VerticalEnemy,
                                     GroupID.Enemy,
                                     handler));
-                }
-                for (int i = 0; i < 3; i++) {
+                } else if (hud.getLevel() == 4) {
                     handler.addObject(
-                            new HorizontalEnemy(0f, r.nextFloat(fixedHeight), ID.HorizontalEnemy,
+                            new SmartEnemy(r.nextFloat(fixedWidth), 0f, ID.SmartEnemy, GroupID.Enemy,
+                                    handler));
+                } else if (hud.getLevel() == 5) {
+                    for (int i = 0; i < 3; i++) {
+                        handler.addObject(
+                                new VerticalEnemy(r.nextFloat(fixedWidth), 0f, ID.VerticalEnemy,
+                                        GroupID.Enemy,
+                                        handler));
+                    }
+                    for (int i = 0; i < 3; i++) {
+                        handler.addObject(
+                                new HorizontalEnemy(0f, r.nextFloat(fixedHeight), ID.HorizontalEnemy,
+                                        GroupID.Enemy,
+                                        handler));
+                    }
+                } else if (hud.getLevel() == 6) {
+                    handler.clearEnemies();
+                    for (int i = 0; i < 3; i++) {
+                        handler.addObject(
+                                new BasicEnemy(r.nextFloat(fixedWidth), 0f, ID.BasicEnemy, GroupID.Enemy,
+                                        handler));
+                    }
+                } else if (hud.getLevel() == 10) {
+                    handler.clearEnemies();
+                    Spawn.boss = true;
+                    handler.addObject(
+                            new EnemyBoss_LV10((Game.WIDTH / 2f) - 32, -256f, ID.EnemyBoss,
                                     GroupID.Enemy,
                                     handler));
+                } else if (hud.getLevel() == 11) {
+                    System.exit(1);
                 }
-            } else if (hud.getLevel() == 6) {
-                for (int i = 0; i < 3; i++) {
-                    handler.addObject(
-                            new BasicEnemy(r.nextFloat(fixedWidth), 0f, ID.BasicEnemy, GroupID.Enemy,
-                                    handler));
-                }
-            } else if (hud.getLevel() == 10) {
-                handler.clearEnemies();
-                handler.addObject(
-                        new EnemyBoss_LV10((Game.WIDTH / 2f) - 32, -256f, ID.EnemyBoss,
-                                GroupID.Enemy,
-                                handler));
-            } else if (hud.getLevel() == 14) {
-
             }
+
         }
 
     }

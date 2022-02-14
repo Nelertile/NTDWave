@@ -11,15 +11,23 @@ public class MenuParticle extends GameObject {
     Random r = new Random();
 
     private Color col;
+    private int size;
 
     public MenuParticle(Float x, Float y, ID id, GroupID gid, Handler handler) {
         super(x, y, id, gid);
 
         this.handler = handler;
 
-        velX = r.nextInt(15);
+        velX = r.nextInt((15 - -15) + -15);
 
-        velY = r.nextInt(15);
+        velY = r.nextInt((15 - -15) + -15);
+
+        size = r.nextInt(24) + 24;
+
+        if (velY == 0 && velX == 0) {
+            velX = 1;
+            velY = 1;
+        }
 
         col = new Color(r.nextInt(255), r.nextInt(255), r.nextInt(255));
     }
@@ -35,21 +43,22 @@ public class MenuParticle extends GameObject {
             velX *= -1;
         }
 
-        handler.addObject(new Trail(x, y, ID.Trail, GroupID.Effect, col, 24, 24, 0.05f, handler));
+        handler.addObject(new Trail(x, y, ID.Trail, GroupID.Effect, col, size, size, 0.05f, handler));
     }
 
     public void render(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
+
+        g.setColor(col);
+        g.fillRect((int) x, (int) y, size, size);
         if (Game.showCollisionBoxes) {
             g.setColor(Color.RED);
-            g2d.draw(getBounds());
+            g2d.fill(getBounds());
         }
-        g.setColor(col);
-        g.fillRect((int) x, (int) y, 24, 24);
     }
 
     public Rectangle getBounds() {
-        return new Rectangle((int) x, (int) y, 24, 24);
+        return new Rectangle((int) x, (int) y, size, size);
     }
 
 }

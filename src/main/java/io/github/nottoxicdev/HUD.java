@@ -9,6 +9,7 @@ public class HUD {
     public static float HEALTH = 100;
 
     public static Font font = new Font("Comfortaa", 1, 50);
+    public static Font mfont = new Font("Comfortaa", 1, 30);
     public static Font sfont = new Font("Comfortaa", 0, 15);
 
     private float greenValue = 255f;
