@@ -39,7 +39,7 @@ public class SmartEnemy extends GameObject {
         velX = (Float) ((-1 / distance) * diffX);
         velY = (Float) ((-1 / distance) * diffY);
 
-        handler.addObject(new Trail(x, y, ID.Trail, GroupID.Effect, Color.RED, 24, 24, 0.01f, handler));
+        handler.addObject(new Trail(x, y, ID.Trail, GroupID.Effect, Color.RED, 24, 24, 0.01f, false, null, handler));
     }
 
     public void render(Graphics g) {

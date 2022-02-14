@@ -4,11 +4,12 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.awt.image.BufferedImage;
 import java.util.Random;
 
 public class Game extends Canvas implements Runnable {
-    // dev v: 11 | beta v: 1
-    public static String v = GameMeta.ConstructGameMeta("NTDWave", 1, 0, "beta", 1);
+    // dev v: 12 | beta v: 1
+    public static String v = GameMeta.ConstructGameMeta("NTDWave", 1, 0, "dev", 12);
     public static String m = "";
     // Construct mod
     // m = GameMeta.ConstructModMeta("modName", 1, 0, "dev", 1);
@@ -17,6 +18,8 @@ public class Game extends Canvas implements Runnable {
 
     private Thread thread;
     private boolean running = false;
+
+    public static boolean paused = false;
 
     private Handler handler;
     private HUD hud;
@@ -35,7 +38,13 @@ public class Game extends Canvas implements Runnable {
     public static STATE gameState = STATE.Menu;
     public static String title = "";
 
+    public static BufferedImage sprite_sheet;
+
+    public static boolean hasWon = false;
+
     public Game() {
+        BufferedImageLoader loader = new BufferedImageLoader();
+        sprite_sheet = loader.loadImage("/res/NTDWave-Spritesheet.png");
         handler = new Handler();
         hud = new HUD();
         menu = new Menu(handler, hud);
@@ -126,6 +135,11 @@ public class Game extends Canvas implements Runnable {
         g.fillRect(0, 0, WIDTH, HEIGHT);
 
         handler.render(g);
+        if (paused) {
+            g.setFont(HUD.font);
+            g.setColor(Color.RED);
+            g.drawString("PAUSED", 100, 100);
+        }
         if (gameState == STATE.Game) {
             hud.render(g);
 
@@ -138,30 +152,43 @@ public class Game extends Canvas implements Runnable {
     }
 
     private void tick() {
-        if (gameState == STATE.Game) {
-            handler.tick();
-            hud.tick();
-            spawner.tick();
+        if (!paused) {
+            if (gameState == STATE.Game) {
+                handler.tick();
+                hud.tick();
+                spawner.tick();
 
-            if (HUD.HEALTH <= 0) {
-                HUD.HEALTH = 100;
-                gameState = STATE.End;
+                if (HUD.HEALTH <= 0) {
+                    HUD.HEALTH = 100;
+                    gameState = STATE.End;
 
-                handler.clearEnemies();
-                for (int i = 0; i < 20; i++) {
+                    handler.clearEnemies();
+                    for (int i = 0; i < 20; i++) {
 
-                    handler.addObject(new MenuParticle(r.nextFloat(Spawn.fixedWidth),
-                            r.nextFloat(Spawn.fixedHeight), ID.MenuParticle, GroupID.Effect,
-                            handler));
+                        handler.addObject(new MenuParticle(r.nextFloat(Spawn.fixedWidth),
+                                r.nextFloat(Spawn.fixedHeight), ID.MenuParticle, GroupID.Effect,
+                                handler));
+                    }
+
                 }
 
+                if (hasWon) {
+                    HUD.HEALTH = 100;
+                    gameState = STATE.End;
+
+                    handler.clearEnemies();
+                    for (int i = 0; i < 20; i++) {
+
+                        handler.addObject(new MenuParticle(r.nextFloat(Spawn.fixedWidth),
+                                r.nextFloat(Spawn.fixedHeight), ID.MenuParticle, GroupID.Effect,
+                                handler));
+                    }
+                }
+            } else if (gameState == STATE.Menu || gameState == STATE.End) {
+                menu.tick();
+                handler.tick();
             }
-        } else if (gameState == STATE.Menu || gameState == STATE.End) {
-            menu.tick();
-            handler.tick();
-
         }
-
     }
 
     public static float clamp(Float var, Float min, Float max) {

@@ -36,6 +36,7 @@ public class Spawn {
                             handler));
 
             start = false;
+
         }
 
         if (scoreKeep >= 100) {
@@ -84,11 +85,15 @@ public class Spawn {
                                     GroupID.Enemy,
                                     handler));
                 } else if (hud.getLevel() == 11) {
-                    System.exit(1);
+                    end();
                 }
             }
 
         }
 
+    }
+
+    public void end() {
+        Game.hasWon = true;
     }
 }

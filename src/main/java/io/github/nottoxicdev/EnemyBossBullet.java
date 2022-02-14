@@ -31,7 +31,7 @@ public class EnemyBossBullet extends GameObject {
 
         }
 
-        handler.addObject(new Trail(x, y, ID.Trail, GroupID.Effect, Color.RED, 24, 24, 0.1f, handler));
+        handler.addObject(new Trail(x, y, ID.Trail, GroupID.Effect, Color.RED, 24, 24, 0.1f, false, null, handler));
     }
 
     public void render(Graphics g) {

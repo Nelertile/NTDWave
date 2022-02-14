@@ -3,6 +3,8 @@ package io.github.nottoxicdev;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+import io.github.nottoxicdev.Game.STATE;
+
 public class KeyInput extends KeyAdapter {
 
     private Handler handler;
@@ -22,9 +24,14 @@ public class KeyInput extends KeyAdapter {
 
         for (int i = 0; i < handler.object.size(); i++) {
             GameObject tempObject = handler.object.get(i);
-
-            if (key == KeyEvent.VK_ESCAPE) {
-                System.exit(1);
+            if (Game.gameState == STATE.Game) {
+                if (key == KeyEvent.VK_ESCAPE) {
+                    if (Game.paused) {
+                        Game.paused = false;
+                    } else {
+                        Game.paused = true;
+                    }
+                }
             }
 
             if (tempObject.getID() == ID.Player) {

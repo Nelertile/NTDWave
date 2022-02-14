@@ -43,7 +43,7 @@ public class MenuParticle extends GameObject {
             velX *= -1;
         }
 
-        handler.addObject(new Trail(x, y, ID.Trail, GroupID.Effect, col, size, size, 0.05f, handler));
+        handler.addObject(new Trail(x, y, ID.Trail, GroupID.Effect, col, size, size, 0.05f, false, null, handler));
     }
 
     public void render(Graphics g) {
