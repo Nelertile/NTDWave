@@ -13,6 +13,9 @@ import java.awt.Color;
 import java.awt.Desktop;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.prefs.Preferences;
+
+import javax.swing.JOptionPane;
 
 public class Menu extends MouseAdapter {
     private HUD hud;
@@ -93,32 +96,46 @@ public class Menu extends MouseAdapter {
             // skinsel
             if (mouseOver(mx, my, 100, 200, 32, 32)) {
                 selectedSkin = 0;
+                Game.prefs.putInt("skin", selectedSkin);
             } else if (mouseOver(mx, my, 136, 200, 32, 32)) {
                 selectedSkin = 1;
+                Game.prefs.putInt("skin", selectedSkin);
             } else if (mouseOver(mx, my, 172, 200, 32, 32)) {
                 selectedSkin = 2;
+                Game.prefs.putInt("skin", selectedSkin);
             } else if (mouseOver(mx, my, 208, 200, 32, 32)) {
                 selectedSkin = 3;
+                Game.prefs.putInt("skin", selectedSkin);
             } else if (mouseOver(mx, my, 100, 236, 32, 32)) {
                 selectedSkin = 4;
+                Game.prefs.putInt("skin", selectedSkin);
             } else if (mouseOver(mx, my, 136, 236, 32, 32)) {
                 selectedSkin = 5;
+                Game.prefs.putInt("skin", selectedSkin);
             } else if (mouseOver(mx, my, 172, 236, 32, 32)) {
                 selectedSkin = 6;
+                Game.prefs.putInt("skin", selectedSkin);
             } else if (mouseOver(mx, my, 208, 236, 32, 32)) {
                 selectedSkin = 7;
+                Game.prefs.putInt("skin", selectedSkin);
             } else if (mouseOver(mx, my, 100, 274, 32, 32)) {
                 selectedSkin = 8;
+                Game.prefs.putInt("skin", selectedSkin);
             } else if (mouseOver(mx, my, 136, 274, 32, 32)) {
                 selectedSkin = 9;
+                Game.prefs.putInt("skin", selectedSkin);
             } else if (mouseOver(mx, my, 172, 274, 32, 32)) {
                 selectedSkin = 10;
+                Game.prefs.putInt("skin", selectedSkin);
             } else if (mouseOver(mx, my, 208, 274, 32, 32)) {
                 selectedSkin = 11;
+                Game.prefs.putInt("skin", selectedSkin);
             } else if (mouseOver(mx, my, 100, 296, 32, 32)) {
                 selectedSkin = 12;
+                Game.prefs.putInt("skin", selectedSkin);
             } else if (mouseOver(mx, my, 136, 296, 32, 32)) {
                 selectedSkin = 13;
+                Game.prefs.putInt("skin", selectedSkin);
             }
 
         } else if (Game.gameState == STATE.End) {

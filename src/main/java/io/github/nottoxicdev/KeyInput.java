@@ -8,10 +8,12 @@ import io.github.nottoxicdev.Game.STATE;
 public class KeyInput extends KeyAdapter {
 
     private Handler handler;
+    private Upgrades upgrades;
     private boolean[] keyDown = new boolean[4];
 
-    public KeyInput(Handler handler) {
+    public KeyInput(Handler handler, Upgrades upgrades) {
         this.handler = handler;
+        this.upgrades = upgrades;
 
         keyDown[0] = false;
         keyDown[1] = false;
@@ -35,6 +37,15 @@ public class KeyInput extends KeyAdapter {
             }
 
             if (tempObject.getID() == ID.Player) {
+                for (int j = 0; j < upgrades.object.size(); j++) {
+                    Upgrade tempUpgrade = upgrades.object.get(j);
+
+                    if (tempUpgrade.getID() == UpgradeID.Heal) {
+                        if (key == KeyEvent.VK_E) {
+                            Heal.healing = true;
+                        }
+                    }
+                }
                 if (key == KeyEvent.VK_F3) {
                     if (Game.showCollisionBoxes) {
                         Game.showCollisionBoxes = false;

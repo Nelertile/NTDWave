@@ -5,6 +5,7 @@ import java.util.Random;
 public class Spawn {
     private Handler handler;
     private HUD hud;
+    private Upgrades upgrades;
     private Random r = new Random();
 
     private int scoreKeep = 0;
@@ -17,9 +18,10 @@ public class Spawn {
     public static boolean start = true;
     public static boolean boss = false;
 
-    public Spawn(Handler handler, HUD hud) {
+    public Spawn(Handler handler, HUD hud, Upgrades upgrades) {
         this.handler = handler;
         this.hud = hud;
+        this.upgrades = upgrades;
     }
 
     public void tick() {
@@ -85,6 +87,31 @@ public class Spawn {
                                     GroupID.Enemy,
                                     handler));
                 } else if (hud.getLevel() == 11) {
+                    upgrades.addUpgrade(new Heal(UpgradeID.Heal, 4));
+                    float tempf = 100;
+                    for (int i = 0; i < 5; i++) {
+                        handler.addObject(new VerticalEnemy(tempf, 0, ID.VerticalEnemy, GroupID.Enemy, handler));
+                        tempf += 100;
+                    }
+                } else if (hud.getLevel() == 12) {
+                    float tempf = 100;
+                    for (int i = 0; i < 4; i++) {
+                        handler.addObject(new HorizontalEnemy(0f, tempf, ID.HorizontalEnemy, GroupID.Enemy, handler));
+                        tempf += 200;
+                    }
+                    float tempf2 = 50;
+                    for (int i = 0; i < 9; i++) {
+                        handler.addObject(
+                                new HorizontalEnemy(fixedWidth, tempf2, ID.HorizontalEnemy, GroupID.Enemy, handler));
+                        tempf2 += 200;
+                    }
+                } else if (hud.getLevel() == 15) {
+                    float tempf = 50;
+                    for (int i = 0; i < 9; i++) {
+                        handler.addObject(new VerticalEnemy(tempf, 0, ID.VerticalEnemy, GroupID.Enemy, handler));
+                        tempf += 100;
+                    }
+                } else if (hud.getLevel() == 20) {
                     end();
                 }
             }

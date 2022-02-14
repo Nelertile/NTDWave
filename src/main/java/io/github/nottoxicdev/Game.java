@@ -6,10 +6,11 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.util.Random;
+import java.util.prefs.Preferences;
 
 public class Game extends Canvas implements Runnable {
-    // dev v: 12 | beta v: 1
-    public static String v = GameMeta.ConstructGameMeta("NTDWave", 1, 0, "dev", 12);
+    // dev v: 13 | beta v: 1
+    public static String v = GameMeta.ConstructGameMeta("NTDWave", 1, 0, "", 0);
     public static String m = "";
     // Construct mod
     // m = GameMeta.ConstructModMeta("modName", 1, 0, "dev", 1);
@@ -25,6 +26,7 @@ public class Game extends Canvas implements Runnable {
     private HUD hud;
     private Spawn spawner;
     private Menu menu;
+    private Upgrades upgrades;
     private Random r;
 
     public static boolean showCollisionBoxes = false;
@@ -42,14 +44,18 @@ public class Game extends Canvas implements Runnable {
 
     public static boolean hasWon = false;
 
+    public static Preferences prefs = Preferences.userRoot().node("/io/github/nottoxicdev");
+
     public Game() {
         BufferedImageLoader loader = new BufferedImageLoader();
         sprite_sheet = loader.loadImage("/res/NTDWave-Spritesheet.png");
         handler = new Handler();
+        upgrades = new Upgrades();
+
         hud = new HUD();
         menu = new Menu(handler, hud);
 
-        this.addKeyListener(new KeyInput(handler));
+        this.addKeyListener(new KeyInput(handler, upgrades));
         this.addMouseListener(menu);
 
         if (m == "") {
@@ -59,7 +65,9 @@ public class Game extends Canvas implements Runnable {
         }
         new Window(WIDTH, HEIGHT, title, this);
 
-        spawner = new Spawn(handler, hud);
+        Menu.selectedSkin = prefs.getInt("skin", 0);
+
+        spawner = new Spawn(handler, hud, upgrades);
         r = new Random();
 
         if (gameState == STATE.Game) {
@@ -157,9 +165,11 @@ public class Game extends Canvas implements Runnable {
                 handler.tick();
                 hud.tick();
                 spawner.tick();
+                upgrades.tick();
 
                 if (HUD.HEALTH <= 0) {
                     HUD.HEALTH = 100;
+                    upgrades.object.clear();
                     gameState = STATE.End;
 
                     handler.clearEnemies();

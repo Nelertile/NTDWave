@@ -7,6 +7,7 @@ import java.awt.Font;
 public class HUD {
 
     public static float HEALTH = 100;
+    public static boolean showHeal = false;
 
     public static Font font = new Font("Comfortaa", 1, 50);
     public static Font mfont = new Font("Comfortaa", 1, 30);
@@ -46,6 +47,10 @@ public class HUD {
         g.drawString(Game.v, 0, Game.HEIGHT - 48);
         g.drawString("Score: " + score, 16, 64);
         g.drawString("Level: " + level, 16, 80);
+
+        if (showHeal) {
+            g.drawString("PRESS 'E' TO HEAL", 16, 96);
+        }
     }
 
     public void setScore(int score) {
