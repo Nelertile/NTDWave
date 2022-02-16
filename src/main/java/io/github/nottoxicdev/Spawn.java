@@ -38,7 +38,6 @@ public class Spawn {
                             handler));
 
             start = false;
-
         }
 
         if (scoreKeep >= 100) {
@@ -89,7 +88,7 @@ public class Spawn {
                 } else if (hud.getLevel() == 11) {
                     upgrades.addUpgrade(new Heal(UpgradeID.Heal, 4));
                     float tempf = 100;
-                    for (int i = 0; i < 5; i++) {
+                    for (int i = 0; i < 9; i++) {
                         handler.addObject(new VerticalEnemy(tempf, 0, ID.VerticalEnemy, GroupID.Enemy, handler));
                         tempf += 100;
                     }
@@ -108,11 +107,37 @@ public class Spawn {
                 } else if (hud.getLevel() == 15) {
                     float tempf = 50;
                     for (int i = 0; i < 9; i++) {
-                        handler.addObject(new VerticalEnemy(tempf, 0, ID.VerticalEnemy, GroupID.Enemy, handler));
+                        handler.addObject(
+                                new VerticalEnemy(tempf, fixedHeight, ID.VerticalEnemy, GroupID.Enemy, handler));
                         tempf += 100;
                     }
                 } else if (hud.getLevel() == 20) {
+                    handler.clearEnemies();
+                    Spawn.boss = true;
+                    handler.addObject(
+                            new EnemyBoss_LV20((Game.WIDTH / 2f) - 32, -256f, ID.EnemyBoss,
+                                    GroupID.Enemy,
+                                    handler));
+                } else if (hud.getLevel() == 21) {
                     end();
+                } else if (hud.getLevel() == 21) {
+                    upgrades.addUpgrade(new Regen(UpgradeID.Regen, 1));
+                    handler.addObject(new SmartEnemy(0, 0, ID.SmartEnemy, GroupID.Enemy, handler));
+                    handler.addObject(new SmartEnemy(0, fixedHeight, ID.SmartEnemy, GroupID.Enemy, handler));
+                    handler.addObject(new SmartEnemy(fixedWidth, 0, ID.SmartEnemy, GroupID.Enemy, handler));
+                    handler.addObject(new SmartEnemy(fixedWidth, fixedHeight, ID.SmartEnemy, GroupID.Enemy, handler));
+                } else if (hud.getLevel() == 25) {
+                    float tempf = 50;
+                    for (int i = 0; i < 15; i++) {
+                        handler.addObject(new HorizontalEnemy(0f, tempf, ID.HorizontalEnemy, GroupID.Enemy, handler));
+                        tempf += 64;
+                    }
+                    tempf = 50;
+                    for (int i = 0; i < 15; i++) {
+                        handler.addObject(
+                                new HorizontalEnemy(fixedWidth, tempf, ID.HorizontalEnemy, GroupID.Enemy, handler));
+                        tempf += 64;
+                    }
                 }
             }
 
