@@ -9,11 +9,11 @@ import java.util.Random;
 import java.util.prefs.Preferences;
 
 public class Game extends Canvas implements Runnable {
-    // dev v: 13 | beta v: 1
-    public static String v = GameMeta.ConstructGameMeta("NTDWave", 1, 0, "", 0);
+    // dev v: 15 | beta v: 1
+    public static String v = GameMeta.ConstructGameMeta("NTDWave", 1, 0, GameMeta.TAG.dev, 15);
     public static String m = "";
     // Construct mod
-    // m = GameMeta.ConstructModMeta("modName", 1, 0, "dev", 1);
+    // m = GameMeta.ConstructModMeta("modName", 1, 0, GameMeta.TAG.dev, 1);
 
     public static final int WIDTH = 1080, HEIGHT = WIDTH / 12 * 9;
 
