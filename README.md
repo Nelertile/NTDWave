@@ -1,6 +1,6 @@
 # NTDWave
 
-Check the [wiki](https://github.com/NotToxicDev/NTDWave/wiki) & the [discord](https://discord.gg/XUUapfstb2).
+Check the [wiki](https://github.com/NotToxicDev/NTDWave/wiki).
 
 ## Contribute!
 
